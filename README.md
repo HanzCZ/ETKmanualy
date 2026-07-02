@@ -5,24 +5,25 @@ Každý návod je Markdown soubor se screenshoty, na kterých je vyznačeno, kam
 
 Složka funguje zároveň jako **Obsidian vault** i jako **GitHub repozitář**.
 
+## Jak psát návody
+
+**➡️ Závazný styl a formát: [`STYL-NAVODU.md`](STYL-NAVODU.md)** — přečti si před psaním nového návodu.
+
+- Prázdná šablona ke zkopírování: [`_sablona/navod-sablona.md`](_sablona/navod-sablona.md)
+- Technický postup pořizování a anotace screenshotů: [`_sablona/screenshoty-postup.md`](_sablona/screenshoty-postup.md)
+
 ## Struktura
 
 ```
 ETKmanualy/
 ├── README.md
+├── STYL-NAVODU.md            # zdroj pravdy pro styl a formát
+├── _sablona/                 # šablona návodu + postup na screenshoty
 └── navody/
     └── <oblast>/
         ├── <nazev-navodu>.md
         └── assets/           # screenshoty k návodům v této oblasti
 ```
-
-## Konvence pro psaní návodu
-
-- Nadpis = co návod řeší.
-- Sekce **Kdo to může udělat** (oprávnění/role).
-- Číslované kroky, u každého kroku screenshot s vyznačením (rámeček/šipka), kam kliknout.
-- Screenshoty se ukládají do `assets/` vedle návodu, pojmenované `nazev-navodu-01.png`, `-02.png`, …
-- Na konci sekce **Proměnné / pole formuláře** s tabulkou (pole → popis → povinné?).
 
 ## Seznam návodů
 
