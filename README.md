@@ -28,3 +28,7 @@ ETKmanualy/
 ## Seznam návodů
 
 - [Učebny — vytvoření a editace](navody/ucebny/ucebny-vytvoreni-a-editace.md)
+
+## Diagramy
+
+- [Směrování příchozích hovorů (SU / OSA / CSP)](diagramy/smerovani-prichozich-hovoru.md)
