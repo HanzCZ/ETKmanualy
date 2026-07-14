@@ -12,7 +12,7 @@ v našem číselníku. Platí pro volání na kteroukoli z těchto klapek:
 | Oddělení | Klapka |
 |---|---|
 | **SU** – studijní oddělení | `11` |
-| **OSA** | `49` |
+| **OSA** | `49` — dnes sdílené se Samantou Soukenickou, viz [plánované rozdělení](#planovana-zmena-rozdeleni-cisla-49) |
 | **CSP** | `00` |
 
 ---
@@ -54,6 +54,39 @@ flowchart TD
     style CSP fill:#fde8d9,stroke:#e07a2f
 ```
 
+<a id="planovana-zmena-rozdeleni-cisla-49"></a>
+## Plánovaná změna: rozdělení čísla 49 (OSA / Samanta Soukenická)
+
+Číslo `49` je dnes **sdílené** — funguje jako hlavní (globální) číslo OSA a zároveň jako
+číslo Samanty Soukenické. Plán je to rozdělit:
+
+- **OSA** dostane **nové číslo** *(zatím není určeno)*,
+- `49` zůstane **pouze Samantě Soukenické**.
+
+```mermaid
+flowchart LR
+    subgraph DNES["Dnes"]
+        N49(["číslo 49 – sdílené"])
+        N49 --> OSA1["OSA – hlavní číslo"]
+        N49 --> SAM1["Samanta Soukenická"]
+    end
+
+    subgraph POTOM["Po změně (zatím nenasazeno)"]
+        NEW(["nové číslo – bude určeno"]) --> OSA2["OSA – hlavní číslo"]
+        N49B(["číslo 49"]) --> SAM2["Samanta Soukenická"]
+    end
+
+    DNES -.-> POTOM
+
+    style NEW fill:#fff4cc,stroke:#c9a227,stroke-dasharray: 5 5
+    style OSA1 fill:#dff2e0,stroke:#3f9c46
+    style OSA2 fill:#dff2e0,stroke:#3f9c46
+```
+
+> ⚠️ Po rozdělení se musí rozřazení „přihláška podaná → OSA" směrovat na **nové hlavní
+> číslo OSA**, ne na `49` (to už bude jen Samanta). Stejně tak přepad z OSA na SU níže
+> se pak týká nového čísla OSA.
+
 ## Nedovolání na OSA — přepad na SU a evidence zmeškaného hovoru
 
 Když se volající na OSA nedovolá, hovor se přepojí na SU (to už dnes funguje).
@@ -81,6 +114,8 @@ flowchart TD
    (1 = školné/platby → SU, 2 = ostatní → CSP).
 3. Nedovolání na OSA → přepad na SU; když nezvedne ani SU, zmeškaný hovor
    **zůstává evidovaný u OSA**.
+4. **Plán:** číslo `49` se rozdělí — OSA dostane nové hlavní číslo (bude určeno),
+   `49` zůstane jen Samantě Soukenické.
 
 ## Otevřené otázky (k ověření)
 
@@ -90,3 +125,6 @@ flowchart TD
 - **Volající mimo číselník:** co se s nimi děje? (Diagram zatím předpokládá běžné
   vyzvánění na volané klapce.)
 - Platí přepad „nedovolání → SU" i pro hovory na **CSP**, nebo jen pro OSA?
+- **Nové hlavní číslo OSA:** jaké bude? (Po rozdělení čísla `49` se Samantou Soukenickou.)
+- Budou se hovory Samanty (`49`) po rozdělení taky rozřazovat podle číselníku,
+  nebo půjde o přímou linku mimo tato pravidla?
