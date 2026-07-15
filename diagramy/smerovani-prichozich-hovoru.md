@@ -60,7 +60,8 @@ flowchart TD
 Číslo `49` je dnes **sdílené** — funguje jako hlavní (globální) číslo OSA a zároveň jako
 číslo Samanty Soukenkové. Plán je to rozdělit:
 
-- **OSA** dostane **nové číslo** *(zatím není určeno)*,
+- **OSA** dostane **nové číslo** *(zatím není určeno)* — bude fungovat jako **hlavní
+  linka OSA** s automatem, který vyzvání všem zaměstnancům OSA najednou,
 - `49` zůstane **pouze Samantě Soukenkové**.
 
 ```mermaid
@@ -109,21 +110,26 @@ flowchart TD
 Když volající volá **přímou linku konkrétního zaměstnance** (např. `34` — K. Ferenčíková, OSA)
 a ten hovor nezvedne, hovor nesmí rovnou spadnout do zmeškaných:
 
-1. Nejdřív vyzvání **hlavní linka OSA** *(zatím neexistuje — vznikne rozdělením čísla `49`)*,
-   nebo **jiný zaměstnanec OSA** *(k rozhodnutí, která varianta)*.
+1. Nejdřív vyzvání **hlavní linka OSA** — na ní je automat, který **vyzvání všem
+   zaměstnancům OSA** najednou. Hlavní linka OSA = **nové číslo** vzniklé rozdělením
+   `49` *(zatím neexistuje)*.
 2. Pokud hovor nezvedne **nikdo z OSA**, přepojí se na **SO — studijní oddělení**.
+3. Když ho nezvedne ani SO, zmeškaný hovor se eviduje **u OSA**
+   (stejné pravidlo jako u hlavního čísla).
 
 ```mermaid
 flowchart TD
     CALL(["Hovor na přímou linku zaměstnance OSA<br>(např. 34 – K. Ferenčíková)"]) --> Q1{Zvedne<br>zaměstnanec?}
     Q1 -- "ano" --> DONE1[Hovor vyřízen]
-    Q1 -- "ne" --> ESC["Vyzvání hlavní linka OSA (zatím neexistuje)<br>nebo jiný zaměstnanec OSA"]
+    Q1 -- "ne" --> ESC["Hlavní linka OSA – automat vyzvání<br>všem zaměstnancům OSA<br>(nové číslo, zatím neexistuje)"]
     ESC --> Q2{Zvedne někdo<br>z OSA?}
     Q2 -- "ano" --> DONE2[Hovor vyřízen na OSA]
     Q2 -- "ne" --> SO["Přepojení na SO – studijní oddělení"]
+    SO --> MISS["Nezvedne-li ani SO,<br>zmeškaný hovor se eviduje u OSA"]
 
     style ESC fill:#fff4cc,stroke:#c9a227,stroke-dasharray: 5 5
     style SO fill:#d9e8ff,stroke:#3b6fd4
+    style MISS fill:#ffe3d1,stroke:#ff5c00
 ```
 
 > ⚠️ **Zkontrolovat i pro SO a CSP:** stejné pravidlo má platit na všech odděleních —
@@ -142,8 +148,9 @@ flowchart TD
    **zůstává evidovaný u OSA**.
 4. **Plán:** číslo `49` se rozdělí — OSA dostane nové hlavní číslo (bude určeno),
    `49` zůstane jen Samantě Soukenkové.
-5. **K nastavení:** nedovolání na přímou linku zaměstnance OSA → vyzvání hlavní linka
-   OSA / jiný zaměstnanec OSA; když nikdo z OSA, přepojení na SO.
+5. **K nastavení:** nedovolání na přímou linku zaměstnance OSA → automat na hlavní
+   lince OSA vyzvání všem zaměstnancům OSA; když nikdo z OSA, přepojení na SO;
+   když ani SO, zmeškaný hovor se eviduje u OSA.
 6. **Zkontrolovat:** stejná eskalace (zaměstnanec → hlavní číslo oddělení → teprve pak
    zmeškaný hovor) má fungovat i na SO a CSP.
 
@@ -158,8 +165,3 @@ flowchart TD
 - **Nové hlavní číslo OSA:** jaké bude? (Po rozdělení čísla `49` se Samantou Soukenkovou.)
 - Budou se hovory Samanty (`49`) po rozdělení taky rozřazovat podle číselníku,
   nebo půjde o přímou linku mimo tato pravidla?
-- **Eskalace u zaměstnance:** má po nedovolání vyzvánět hlavní linka oddělení,
-  jiný zaměstnanec, nebo obojí v nějakém pořadí?
-- Je hlavní linka OSA v eskalaci totéž co **nové číslo OSA** z rozdělení `49`?
-- Když se hovor po eskalaci přepojí na SO a nezvedne ho ani SO — eviduje se zmeškaný
-  hovor u zaměstnance / u OSA? (Asi stejné pravidlo jako u hlavního čísla, potvrdit.)
