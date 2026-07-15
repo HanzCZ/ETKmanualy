@@ -118,7 +118,12 @@ flowchart LR
 > číslo OSA**, ne na `49` (to už bude jen Samanta). Stejně tak přepad z OSA na SO níže
 > se pak týká nového čísla OSA.
 
-## Nedovolání na OSA — přepad na SO a evidence zmeškaného hovoru
+## Nedovolání na oddělení — přepad na SO a evidence zmeškaného hovoru
+
+Obecný princip: **zmeškaný / nepřijatý hovor se vždy eviduje u původně volaného
+oddělení** — bez ohledu na to, kdo hovor po přepadu zvedl (nebo nezvedl).
+
+### OSA → SO
 
 Když se volající na OSA nedovolá, hovor se přepojí na SO (to už dnes funguje).
 **Změna:** pokud hovor nezvedne ani SO, zmeškaný hovor se musí evidovat **u OSA**, ne u SO.
@@ -134,6 +139,32 @@ flowchart TD
 
     style MISS fill:#ffe3d1,stroke:#ff5c00,stroke-width:2px
 ```
+
+### CSP → SO
+
+Když se volající na CSP nedovolá, hovor přepadne na SO. Když ho SO zvedne,
+**omluví se volajícímu, slíbí zpětné volání a zaznamená NEPŘIJATÝ hovor u CSP** —
+aby CSP vědělo, že má volat zpět.
+
+```mermaid
+flowchart TD
+    CALL([Hovor směrovaný na CSP]) --> Q1{Zvedne CSP?}
+    Q1 -- "ano" --> DONE1[Hovor vyřízen na CSP]
+    Q1 -- "ne" --> FWD[Přepad na SO]
+    FWD --> Q2{Zvedne SO?}
+    Q2 -- "ano" --> APOL["SO se omluví, slíbí zpětné volání<br>a zaznamená nepřijatý hovor u CSP"]
+    Q2 -- "ne" --> MISS["Zmeškaný hovor se eviduje u CSP"]
+
+    style APOL fill:#ffe3d1,stroke:#ff5c00
+    style MISS fill:#ffe3d1,stroke:#ff5c00
+```
+
+### Tlačítka oddělení na modalu hovoru (k vytvoření)
+
+Aby šlo nepřijatý hovor přiřadit správnému oddělení, je potřeba na **modal hovoru
+přidat tlačítka pro všechna oddělení** (SO / OSA / CSP). Kdo zvedne hovor patřící
+jinému oddělení, jedním klikem zaznamená nepřijatý hovor tomu oddělení, kterému
+hovor patřil.
 
 ## Nedovolání na přímou linku zaměstnance — eskalace na oddělení (k nastavení)
 
@@ -175,8 +206,9 @@ flowchart TD
    přijat a školní rok běží → **CSP**.
 2. **Zatím** jdou všichni přijatí rovnou na CSP; **plán** je IVR rozcestník
    (1 = školné/platby → SO, 2 = ostatní → CSP).
-3. Nedovolání na OSA → přepad na SO; když nezvedne ani SO, zmeškaný hovor
-   **zůstává evidovaný u OSA**.
+3. Nedovolání na oddělení (OSA i CSP) → přepad na SO; zmeškaný/nepřijatý hovor se
+   **vždy eviduje u původně volaného oddělení**. Když hovor za CSP zvedne SO,
+   omluví se, slíbí zpětné volání a zaznamená nepřijatý hovor u CSP.
 4. **Plán:** číslo `49` se rozdělí — OSA dostane nové hlavní číslo (bude určeno),
    `49` zůstane jen Samantě Soukenkové.
 5. **K nastavení:** nedovolání na přímou linku zaměstnance OSA → automat na hlavní
@@ -186,6 +218,8 @@ flowchart TD
    zmeškaný hovor) má fungovat i na SO a CSP.
 7. Číslo u **více osob** → „jedeme pozitivně": bere se nejvyšší stav
    (stávající student > přijat > podaná > před podáním).
+8. **K vytvoření:** tlačítka všech oddělení (SO / OSA / CSP) na modalu hovoru,
+   pro přiřazení nepřijatého hovoru správnému oddělení jedním klikem.
 
 ## Otevřené otázky (k ověření)
 
@@ -194,7 +228,6 @@ flowchart TD
   tedy SO dostává jen stavy **před podáním přihlášky**. Potvrdit.
 - **Volající mimo číselník:** co se s nimi děje? (Diagram zatím předpokládá běžné
   vyzvánění na volané klapce.)
-- Platí přepad „nedovolání → SO" i pro hovory na **CSP**, nebo jen pro OSA?
 - **Nové hlavní číslo OSA:** jaké bude? (Po rozdělení čísla `49` se Samantou Soukenkovou.)
 - Budou se hovory Samanty (`49`) po rozdělení taky rozřazovat podle číselníku,
   nebo půjde o přímou linku mimo tato pravidla?
