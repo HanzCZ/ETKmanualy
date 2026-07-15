@@ -28,24 +28,25 @@ flowchart TD
 
     STAV -- "před podáním přihlášky" --> SO["SO – studijní oddělení (11)"]
     STAV -- "přihláška podaná,<br>zatím nepřijat" --> OSA["OSA (49)"]
-    STAV -- "přijat a dále" --> CSP["CSP (00)"]
+    STAV -- "přijat, ale školní rok<br>ještě nezačal" --> SO
+    STAV -- "přijat a školní rok běží" --> CSP["CSP (00)"]
 
     style SO fill:#d9e8ff,stroke:#3b6fd4
     style OSA fill:#dff2e0,stroke:#3f9c46
     style CSP fill:#fde8d9,stroke:#e07a2f
 ```
 
-> ⚠️ **Dnes platí:** kdo je „přijat a dále", padá **vždy rovnou na CSP**.
+> ⚠️ **Dnes platí:** kdo je „přijat a školní rok mu běží", padá **vždy rovnou na CSP**.
 > IVR rozcestník níže zatím neexistuje.
 
 ## Plánované rozšíření: IVR rozcestník pro přijaté
 
-Až bude rozcestník nasazen, přijatí volající nespadnou rovnou na CSP, ale nejdřív
-uslyší volbu:
+Až bude rozcestník nasazen, přijatí volající (se běžícím školním rokem — ti, co dnes
+padají na CSP) nespadnou rovnou na CSP, ale nejdřív uslyší volbu:
 
 ```mermaid
 flowchart TD
-    PRIJAT["Volající: přijat a dále"] --> IVR{{"IVR rozcestník<br>(zatím NENÍ nasazen)"}}
+    PRIJAT["Volající: přijat a školní rok běží"] --> IVR{{"IVR rozcestník<br>(zatím NENÍ nasazen)"}}
     IVR -- "volba 1 – školné / platba /<br>splátkový kalendář" --> SO["SO (11)"]
     IVR -- "volba 2 – cokoli jiného" --> CSP["CSP (00)"]
 
@@ -141,7 +142,8 @@ flowchart TD
 ## Shrnutí pravidel
 
 1. Volající **v číselníku** se rozřazuje podle stavu: před podáním přihlášky → **SO**,
-   podaná a nepřijat → **OSA**, přijat a dále → **CSP**.
+   podaná a nepřijat → **OSA**, přijat před začátkem školního roku → **SO**,
+   přijat a školní rok běží → **CSP**.
 2. **Zatím** jdou všichni přijatí rovnou na CSP; **plán** je IVR rozcestník
    (1 = školné/platby → SO, 2 = ostatní → CSP).
 3. Nedovolání na OSA → přepad na SO; když nezvedne ani SO, zmeškaný hovor
