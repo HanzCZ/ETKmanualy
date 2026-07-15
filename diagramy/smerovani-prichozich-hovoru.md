@@ -39,6 +39,35 @@ flowchart TD
 > ⚠️ **Dnes platí:** kdo je „přijat a školní rok mu běží", padá **vždy rovnou na CSP**.
 > IVR rozcestník níže zatím neexistuje.
 
+## Jedno číslo u více osob v číselníku — „jedeme pozitivně"
+
+Stejné telefonní číslo může být v číselníku u **více záznamů** (např. rodič s více
+dětmi, staré nepřijaté přihlášky). Pak se pro směrování bere **nejvyšší /
+nejpokročilejší stav** ze všech záznamů s tímto číslem:
+
+**Priorita (od nejvyšší):**
+
+1. **Stávající student** (školní rok běží) → CSP
+2. **Přijat** (rok ještě nezačal) → SO
+3. **Přihláška podaná, nepřijat** → OSA
+4. **Před podáním přihlášky** → SO
+
+```mermaid
+flowchart TD
+    NUM(["Číslo volajícího je u více osob v číselníku"]) --> RULE["Vezme se NEJVYŠŠÍ stav ze všech záznamů<br>(„jedeme pozitivně")"]
+    RULE --> PRIO["stávající student &gt; přijat &gt; podaná &gt; před podáním"]
+    PRIO --> ROUTE["Dál se směruje podle hlavního rozřazení výše"]
+
+    style RULE fill:#dff2e0,stroke:#3f9c46
+```
+
+Příklady:
+
+- Číslo je u **tří nepřijatých** přihlášek a **jedné přijaté** → bere se **přijatá**
+  (pozitivní vyhrává).
+- Číslo je u **stávajícího studenta** a zároveň u **čerstvě přijaté přihlášky** →
+  bere se **stávající student** (→ CSP); stávající student přebíjí i čerstvé přijetí.
+
 ## Plánované rozšíření: IVR rozcestník pro přijaté
 
 Až bude rozcestník nasazen, přijatí volající (se běžícím školním rokem — ti, co dnes
@@ -155,6 +184,8 @@ flowchart TD
    když ani SO, zmeškaný hovor se eviduje u OSA.
 6. **Zkontrolovat:** stejná eskalace (zaměstnanec → hlavní číslo oddělení → teprve pak
    zmeškaný hovor) má fungovat i na SO a CSP.
+7. Číslo u **více osob** → „jedeme pozitivně": bere se nejvyšší stav
+   (stávající student > přijat > podaná > před podáním).
 
 ## Otevřené otázky (k ověření)
 
