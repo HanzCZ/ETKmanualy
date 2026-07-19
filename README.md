@@ -1,3 +1,6 @@
+> ⚠️ **Toto repo je archivované — obsah se přestěhoval.**
+> Aktuální verze žije v privátním repu [HanzCZ/ssgh-dokumentace](https://github.com/HanzCZ/ssgh-dokumentace), složka [`etk-manualy/`](https://github.com/HanzCZ/ssgh-dokumentace/tree/main/etk-manualy). Historie commitů byla při sloučení zachována.
+
 # ETK manuály
 
 Návody „jak něco udělat v ETK" (administrace na `https://etkdev.ssgh.cz/admin/`).
